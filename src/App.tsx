@@ -1,16 +1,8 @@
-import logo from './logo.svg';
-import Counter from './components/Counter';
 import './App.css';
+import Router from './routes';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-      </header>
-    </div>
-  );
+  return <Router />;
 }
 
 export default App;
