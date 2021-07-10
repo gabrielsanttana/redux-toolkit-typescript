@@ -1,14 +1,16 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
-import {apiSlice} from '../services/dogsAPI';
+import {dogsSlice} from './services/dogsAPI';
 import counterReducer from './reducers/counter';
+import pokemonsReducer from './reducers/pokemons';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    [apiSlice.reducerPath]: apiSlice.reducer,
+    pokemons: pokemonsReducer,
+    [dogsSlice.reducerPath]: dogsSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(apiSlice.middleware);
+    return getDefaultMiddleware().concat(dogsSlice.middleware);
   },
 });
 

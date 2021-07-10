@@ -5,8 +5,8 @@ interface Dog {
   status: string;
 }
 
-export const apiSlice = createApi({
-  reducerPath: 'api',
+export const dogsSlice = createApi({
+  reducerPath: 'dogs',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://dog.ceo/api',
   }),
@@ -21,4 +21,4 @@ export const apiSlice = createApi({
   },
 });
 
-export const {useFetchDogsQuery} = apiSlice;
+export const {useFetchDogsQuery} = dogsSlice;
