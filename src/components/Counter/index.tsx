@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import {useState} from 'react';
+import {useAppSelector, useAppDispatch} from '../../store/hooks';
 import {
   decrement,
   increment,
@@ -8,18 +7,30 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
-} from './counterSlice';
+} from '../../store/reducers/counter';
+import {useFetchDogsQuery} from '../../utils/dogsAPI';
 import styles from './Counter.module.css';
 
-export function Counter() {
+function Counter() {
   const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
 
   const incrementValue = Number(incrementAmount) || 0;
 
+  const {data, isFetching} = useFetchDogsQuery();
+
   return (
     <div>
+      {isFetching ? (
+        'Loading...'
+      ) : (
+        <div>
+          <p>Message: {data?.message}</p>
+          <p>Status: {data?.status}</p>
+        </div>
+      )}
+
       <div className={styles.row}>
         <button
           className={styles.button}
@@ -66,3 +77,5 @@ export function Counter() {
     </div>
   );
 }
+
+export default Counter;
