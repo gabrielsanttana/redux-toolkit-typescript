@@ -8,7 +8,7 @@ import {
   incrementIfOdd,
   selectCount,
 } from '../../store/reducers/counter';
-import {useFetchDogsQuery} from '../../utils/dogsAPI';
+import {useFetchDogsQuery} from '../../services/dogsAPI';
 import styles from './Counter.module.css';
 
 function Counter() {

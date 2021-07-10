@@ -1,5 +1,5 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
-import {apiSlice} from '../utils/dogsAPI';
+import {apiSlice} from '../services/dogsAPI';
 import counterReducer from './reducers/counter';
 
 export const store = configureStore({
