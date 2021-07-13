@@ -8,7 +8,10 @@ import {
   incrementIfOdd,
   selectCount,
 } from '../../store/reducers/counter';
-import {useFetchDogsQuery} from '../../store/services/dogsAPI';
+import {
+  useLazyFetchDogsQuery,
+  useUpdateDogMutation,
+} from '../../store/services/dogsAPI';
 import styles from './Counter.module.css';
 
 function Counter() {
@@ -18,18 +21,37 @@ function Counter() {
 
   const incrementValue = Number(incrementAmount) || 0;
 
-  const {data, isFetching} = useFetchDogsQuery();
+  const [fetchDogs, {isFetching, data: fetchDogsdata, error: fetchDogsError}] =
+    useLazyFetchDogsQuery();
+
+  const [updateDog, {error: updateDogError}] = useUpdateDogMutation();
+
+  function handleFetch() {
+    fetchDogs();
+  }
+
+  function handleUpdate() {
+    updateDog({newData: ''});
+  }
 
   return (
     <div>
+      <button onClick={handleFetch}>Dispatch lazy fetch dogs</button>
+
+      <button onClick={handleUpdate}>Dispatch lazy update dog</button>
+
       {isFetching ? (
         'Loading...'
       ) : (
         <div>
-          <p>Message: {data?.message}</p>
-          <p>Status: {data?.status}</p>
+          <p>Message: {fetchDogsdata?.message}</p>
+          <p>Status: {fetchDogsdata?.status}</p>
         </div>
       )}
+
+      {fetchDogsError && <p>{(fetchDogsError as any).status}</p>}
+
+      {updateDogError && <p>{(updateDogError as any).status}</p>}
 
       <div className={styles.row}>
         <button
