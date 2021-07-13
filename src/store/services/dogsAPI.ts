@@ -14,11 +14,22 @@ export const dogsSlice = createApi({
     return {
       fetchDogs: builder.query<Dog, void>({
         query() {
-          return '/breeds/image/random';
+          return '/breeds/image/randomn';
         },
+      }),
+
+      updateDog: builder.mutation<Dog, {newData: any}>({
+        query: ({newData}) => ({
+          url: '/breeds/image/random',
+          method: 'PATCH',
+          body: newData,
+        }),
       }),
     };
   },
 });
 
-export const {useFetchDogsQuery} = dogsSlice;
+export const {useLazyQuery: useLazyFetchDogsQuery} =
+  dogsSlice.endpoints.fetchDogs;
+
+export const {useUpdateDogMutation} = dogsSlice;
